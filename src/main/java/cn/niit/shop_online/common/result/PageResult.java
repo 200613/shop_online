@@ -1,5 +1,4 @@
 package cn.niit.shop_online.common.result;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
