@@ -26,6 +26,7 @@ import lombok.Setter;
 @ApiModel(value = "GoodsSpecification对象", description = "")
 public class GoodsSpecification {
 
+
     @ApiModelProperty("主键id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
