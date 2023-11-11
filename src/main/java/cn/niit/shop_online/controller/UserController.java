@@ -2,9 +2,9 @@ package cn.niit.shop_online.controller;
 
 import cn.niit.shop_online.common.result.Result;
 import cn.niit.shop_online.entity.User;
-import cn.niit.shop_online.query.LoginResultVO;
+import cn.niit.shop_online.vo.LoginResultVO;
 import cn.niit.shop_online.query.UserLoginQuery;
-import cn.niit.shop_online.query.UserVO;
+import cn.niit.shop_online.vo.UserVO;
 import cn.niit.shop_online.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import static cn.niit.shop_online.common.utils.ObtainUserIdUtils.getUserId;
 
@@ -20,7 +21,7 @@ import static cn.niit.shop_online.common.utils.ObtainUserIdUtils.getUserId;
  *  前端控制器
  * </p>
  *
- * @author 1103386023
+ * @author 18298079300
  * @since 2023-11-07
  */
 @Tag(name = "用户模块")
@@ -51,6 +52,13 @@ public class UserController {
         userVO.setId(userId);
         UserVO userInfo = userService.editUserInfo(userVO);
         return Result.ok(userInfo);
+    }
+    @Operation(summary = "修改用户头像")
+    @PostMapping("/profile/avatar")
+    private Result<String> editUserAvatar(HttpServletRequest request, MultipartFile file) {
+        Integer userId = getUserId(request);
+        String uploadFileName = userService.editUserAvatar(userId, file);
+        return Result.ok(uploadFileName);
     }
 
 }

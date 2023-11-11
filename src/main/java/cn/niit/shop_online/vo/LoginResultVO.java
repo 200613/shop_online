@@ -1,4 +1,4 @@
-package cn.niit.shop_online.query;
+package cn.niit.shop_online.vo;
 
 
 
