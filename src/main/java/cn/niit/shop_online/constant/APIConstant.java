@@ -27,7 +27,7 @@ public class APIConstant {
     /**
      * APP_SECRET
      */
-    public static String APP_SECRET = "5317a0121007874245d5bf4d0583a19d";
+    public static String APP_SECRET = "da9c59036665759551a222319dee0ccd";
     /**
      * 微信调用api接口返回错误code
      */

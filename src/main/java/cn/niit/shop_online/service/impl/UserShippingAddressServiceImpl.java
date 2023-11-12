@@ -4,6 +4,7 @@ import cn.niit.shop_online.common.exception.ServerException;
 import cn.niit.shop_online.convert.AddressConvert;
 import cn.niit.shop_online.entity.UserShippingAddress;
 import cn.niit.shop_online.enums.AddressDefaultEnum;
+import cn.niit.shop_online.enums.AddressDeleteFlagEnum;
 import cn.niit.shop_online.mapper.UserShippingAddressMapper;
 import cn.niit.shop_online.service.UserShippingAddressService;
 import cn.niit.shop_online.vo.AddressVO;
@@ -59,5 +60,34 @@ public class UserShippingAddressServiceImpl extends ServiceImpl<UserShippingAddr
         updateById(address);
         return address.getId();
     }
+
+    @Override
+    public List<AddressVO> putShippingList(Integer userId) {
+        List<UserShippingAddress> list = baseMapper.selectList(new LambdaQueryWrapper<UserShippingAddress>().eq(UserShippingAddress::getUserId, userId));
+        return AddressConvert.INSTANCE.convertToAddressVOList(list);
+    }
+
+    @Override
+    public AddressVO getShippingAddress(Integer id) {
+        UserShippingAddress address = baseMapper.selectById(id);
+        return AddressConvert.INSTANCE.convertToAddressVO(address);
+    }
+
+    @Override
+    public void deleteShippingAddress(Integer id) {
+        UserShippingAddress address = baseMapper.selectById(id);
+        if (address == null){
+            throw new ServerException("地址不存在");
+        }
+        if (address.getIsDefault() == AddressDefaultEnum.DEFAULT_ADDRESS.getValue()){
+            throw new ServerException("默认地址不能删除");
+        }else {
+            UserShippingAddress updateAddress = new UserShippingAddress();
+            updateAddress.setId(id);
+            updateAddress.setDeleteFlag(AddressDeleteFlagEnum.DELETE_ADDRESS.getValue());
+            baseMapper.update(updateAddress, new LambdaQueryWrapper<UserShippingAddress>().eq(UserShippingAddress::getId, id));
+        }
+    }
+
 
 }

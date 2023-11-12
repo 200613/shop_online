@@ -1,5 +1,4 @@
 package cn.niit.shop_online.service.impl;
-
 import cn.niit.shop_online.common.exception.ServerException;
 import cn.niit.shop_online.common.utils.GeneratorCodeUtils;
 import cn.niit.shop_online.common.utils.JWTUtils;
@@ -31,7 +30,6 @@ import java.io.InputStream;
 import java.util.UUID;
 
 import static cn.niit.shop_online.constant.APIConstant.*;
-
 /**
  * <p>
  *  服务实现类

@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import static cn.niit.shop_online.common.utils.ObtainUserIdUtils.getUserId;
-
 /**
  * <p>
  *  前端控制器
  * </p>
  *
- * @author 18298079300
+ * @author 1103386023
  * @since 2023-11-07
  */
 @Tag(name = "用户模块")
