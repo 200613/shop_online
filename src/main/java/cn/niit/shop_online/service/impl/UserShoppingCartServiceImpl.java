@@ -6,6 +6,7 @@ import cn.niit.shop_online.entity.UserShoppingCart;
 import cn.niit.shop_online.mapper.GoodsMapper;
 import cn.niit.shop_online.mapper.UserShoppingCartMapper;
 import cn.niit.shop_online.query.CartQuery;
+import cn.niit.shop_online.query.EditCartQuery;
 import cn.niit.shop_online.service.UserShoppingCartService;
 import cn.niit.shop_online.vo.CartGoodsVO;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -64,4 +65,36 @@ private final GoodsMapper goodsMapper;
         return list;
 
     }
+
+    @Override
+    public CartGoodsVO editCart(EditCartQuery query) {
+        UserShoppingCart userShoppingCart=baseMapper.selectById(query.getId());
+        if (userShoppingCart==null){
+            throw new ServerException("购物车信息不存在");
+
+        }
+        userShoppingCart.setCount(query.getCount());
+        userShoppingCart.setSelected(query.getSelected());
+        baseMapper.updateById(userShoppingCart);
+
+        Goods goods=goodsMapper.selectById(userShoppingCart.getGoodsId());
+        if(query.getCount()>goods.getInventory()){
+            throw new ServerException(goods.getName()+"库存数量不足");
+        }
+        CartGoodsVO goodsVO=new CartGoodsVO();
+        goodsVO.setId(userShoppingCart.getId());
+        goodsVO.setName(goods.getName());
+        goodsVO.setAttrsText(userShoppingCart.getAttrsText());
+        goodsVO.setPrice(userShoppingCart.getPrice());
+        goodsVO.setNowPrice(goods.getPrice());
+        goodsVO.setSelected(userShoppingCart.getSelected());
+        goodsVO.setStock(goods.getInventory());
+        goodsVO.setCount(query.getCount());
+        goodsVO.setPicture(goods.getCover());
+        goodsVO.setDiscount(goods.getDiscount());
+        return goodsVO;
+
+    }
 }
+
+
