@@ -5,6 +5,8 @@ import cn.niit.shop_online.query.CartQuery;
 import cn.niit.shop_online.vo.CartGoodsVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -16,4 +18,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserShoppingCartService extends IService<UserShoppingCart> {
 //添加购物车
     CartGoodsVO addShopCart(CartQuery query);
+    List<CartGoodsVO> shopCartList(Integer userId);
 }
