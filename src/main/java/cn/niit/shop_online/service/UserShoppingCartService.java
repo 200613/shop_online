@@ -23,4 +23,5 @@ public interface UserShoppingCartService extends IService<UserShoppingCart> {
     List<CartGoodsVO> shopCartList(Integer userId);
     //
     CartGoodsVO editCart(EditCartQuery query);
+    void removeCartGoods(Integer useId,List<Integer> ids);
 }

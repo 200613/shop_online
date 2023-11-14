@@ -9,11 +9,14 @@ import cn.niit.shop_online.query.CartQuery;
 import cn.niit.shop_online.query.EditCartQuery;
 import cn.niit.shop_online.service.UserShoppingCartService;
 import cn.niit.shop_online.vo.CartGoodsVO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -94,6 +97,18 @@ private final GoodsMapper goodsMapper;
         goodsVO.setDiscount(goods.getDiscount());
         return goodsVO;
 
+    }
+
+    @Override
+    public void removeCartGoods(Integer useId, List<Integer> ids) {
+        List<UserShoppingCart> cartList=baseMapper.selectList(new LambdaQueryWrapper<UserShoppingCart>()
+                .eq(UserShoppingCart::getUserId,useId));
+        if (cartList.size()==0){
+            return;
+        }
+        List<UserShoppingCart>deleteCartList=cartList.stream().filter(item->
+                ids.contains(item.getId())).collect(Collectors.toList());
+        removeBatchByIds(deleteCartList);
     }
 }
 
