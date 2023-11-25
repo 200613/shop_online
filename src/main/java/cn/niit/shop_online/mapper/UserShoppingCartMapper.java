@@ -12,10 +12,9 @@ import java.util.List;
  *  Mapper 接口
  * </p>
  *
- * @author 200613
+ * @author 1103386023
  * @since 2023-11-07
  */
 public interface UserShoppingCartMapper extends BaseMapper<UserShoppingCart> {
 List<CartGoodsVO> getCartGoodsInfo(@Param("id") Integer id);
-
 }
