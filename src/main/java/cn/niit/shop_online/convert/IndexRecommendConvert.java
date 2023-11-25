@@ -2,7 +2,7 @@ package cn.niit.shop_online.convert;
 
 import cn.niit.shop_online.entity.IndexRecommend;
 import cn.niit.shop_online.vo.IndexRecommendVO;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -28,5 +28,4 @@ public interface IndexRecommendConvert {
         }
     }
 }
-
 
