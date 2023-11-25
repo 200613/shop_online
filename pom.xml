@@ -8,7 +8,7 @@
         <version>3.1.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.soft2242.shop</groupId>
+    <groupId>cn.niit.shop_online</groupId>
     <artifactId>shop_online</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>shop_online</name>
@@ -128,24 +128,35 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-
         <!-- 阿里云OSS        -->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
             <version>3.17.1</version>
         </dependency>
-
-
     </dependencies>
 
     <build>
+        <finalName>shop-client-api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>cn.niit.shop_online.ShopOnlineApplication</mainClass>
+<!--                    <skip>true</skip>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
 
 </project>
