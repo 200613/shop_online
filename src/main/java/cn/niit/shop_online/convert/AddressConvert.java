@@ -1,4 +1,5 @@
 package cn.niit.shop_online.convert;
+
 import cn.niit.shop_online.entity.UserShippingAddress;
 import cn.niit.shop_online.vo.AddressVO;
 import org.mapstruct.Mapper;
@@ -19,4 +20,3 @@ public interface AddressConvert {
 
     AddressVO convertToAddressVO(UserShippingAddress userShippingAddress);
 }
-

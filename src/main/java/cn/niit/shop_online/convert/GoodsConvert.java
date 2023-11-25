@@ -14,10 +14,14 @@ import java.util.List;
 @Mapper
 public interface GoodsConvert {
     GoodsConvert INSTANCE = Mappers.getMapper(GoodsConvert.class);
+
+
     @Mapping(expression = "java(MapStruct.strToList(goods.getProductPictures()))", target = "productPictures")
     @Mapping(expression = "java(MapStruct.strToList(goods.getMainPictures()))", target = "mainPictures")
     GoodsVO convertToGoodsVO(Goods goods);
+
     List<RecommendGoodsVO> convertToRecommendGoodsVOList(List<Goods> goodsList);
+
     class MapStruct {
         public static List<String> strToList(String str) {
             if (StringUtils.isNotEmpty(str)) {
@@ -27,3 +31,4 @@ public interface GoodsConvert {
         }
     }
 }
+
