@@ -20,7 +20,7 @@ import static cn.niit.shop_online.common.utils.ObtainUserIdUtils.getUserId;
  *  前端控制器
  * </p>
  *
- * @author 1103386023
+ * @author 200613
  * @since 2023-11-07
  */
 @Tag(name = "地址管理")
@@ -45,28 +45,37 @@ public class UserShippingAddressController {
             throw new ServerException("请求参数不能为空");
         }
         addressVO.setUserId(getUserId(request));
-        Integer addressId = userShippingAddressService.editShippingAddress(addressVO);
+        Integer addressId = userShippingAddressService.editshippingAddress(addressVO);
         return Result.ok(addressId);
     }
     @Operation(summary = "收货地址列表")
     @GetMapping("address")
-    public Result<List<AddressVO>> putAddressList(@RequestParam Integer userId) {
-        List<AddressVO> addressList = userShippingAddressService.putShippingList(userId);
-        return Result.ok(addressList);
+    public Result<List<AddressVO>> getList(HttpServletRequest request) {
+        Integer userId = getUserId(request);
+        List<AddressVO> list = userShippingAddressService.getList(userId);
+        return Result.ok(list);
+
     }
 
     @Operation(summary = "收货地址详情")
     @GetMapping("address/detail")
-    public Result<AddressVO> getAddress(@RequestParam Integer id) {
-        AddressVO address = userShippingAddressService.getShippingAddress(id);
-        return Result.ok(address);
+    public Result<AddressVO> getAddressDetail(@RequestParam Integer id, HttpServletRequest request) {
+        if (id == null) {
+            throw new ServerException("请求参数不能为空");
+        }
+        AddressVO addressInfo = userShippingAddressService.getAddressInfo(id);
+        return Result.ok(addressInfo);
     }
 
     @Operation(summary = "删除收货地址")
     @DeleteMapping("address")
-    public Result deleteAddress(@RequestParam Integer id) {
-        userShippingAddressService.deleteShippingAddress(id);
+    public Result removeAddress(@RequestParam Integer id, HttpServletRequest request) {
+        if (id == null) {
+            throw new ServerException("请求参数不能为空");
+        }
+        userShippingAddressService.removeShippingAddress(id);
         return Result.ok();
     }
+
 
 }
